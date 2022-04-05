@@ -5,6 +5,13 @@ body{
     grid-template-areas: "header" "main_content" "footer";
     background-size: 300px 100px;
     font-family: "serif";
+
+    background-image:radial-gradient(#fafafa 10%, transparent 10%);
+    background-color: #e6f3ff;
+    background-position: 0 0, 50px 50px;
+    background-size: 100px 100px;
+    height: 200px;
+    width: 100%;
 }
 
 p{
