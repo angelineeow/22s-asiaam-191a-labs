@@ -6,6 +6,12 @@
         <meta charset="utf-8" />
         <link rel="shortcut icon" href="#">
         <link rel="stylesheet" href="styles/style.css">
+
+        <!-- Leaflet's css-->
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+
+        <!-- Leaflet's JavaScript-->
+        <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     </head>
 
     <body>
@@ -14,6 +20,7 @@
         </header>
 
         <div class="main">
+            <div id="contents">
             <h1>
                 &#10024 More About Me &#10024
             </h1>
@@ -49,11 +56,21 @@
             </ul>
 
             <h2>
-                <a href="index.html">&#11013</a>
+                Places I have traveled to:
             </h2>
+            </div>
+
+            <div id="the_map"></div>
         </div>
 
+        <script src="./js/init.js"></script> 
+
         <div id="footer">
+
+            <h2>
+                <a href="index.html">&#11013</a>
+            </h2>
+
             Copyright(2022)
         </div>
     </body>

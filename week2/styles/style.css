@@ -56,6 +56,11 @@ img{
     margin-right: auto;
 }
 
+img.big{
+    width:  150px;
+    height: 150px;;
+}
+
 header{
     grid-area: header;
     text-align: center;
