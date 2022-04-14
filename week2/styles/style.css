@@ -4,7 +4,7 @@ body{
     grid-auto-rows: auto 1fr;
     grid-template-areas: "header" "main_content" "footer";
     background-size: 300px 100px;
-    font-family: "serif";
+    font-family: Cambria;
 
     background-image:radial-gradient(#fafafa 10%, transparent 10%);
     background-color: #e6f3ff;
@@ -14,6 +14,28 @@ body{
     width: 100%;
 
     text-align: center;
+}
+
+.spacing2{
+    letter-spacing: .2rem;
+    color: #91a0e6;
+}
+
+.spacing3{
+    letter-spacing: .3rem;
+    color: #91a0e6;
+}
+
+.cottoncolor{
+    color: #91a0e6;
+}
+
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width:  150px;
+    height: 150px;;
 }
 
 p{
@@ -43,26 +65,25 @@ ul{
     text-align: center;
 }
 
-ul.big{
+.big{
     display: inline;
     margin-top: 0 auto;
     line-height: 1.8;
 }
 
-img{
-    display: block;
-    width: 30%;
-    margin-left: auto;
-    margin-right: auto;
+*{
+    cursor: url('cute-ghost.gif'), auto;
 }
 
-img.big{
-    width:  150px;
-    height: 150px;;
+img{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 27%;
+    border-radius: 20px;
 }
 
 header{
-    grid-area: header;
     text-align: center;
 }
 
@@ -86,4 +107,12 @@ header{
 #the_map{
     height: 80vh;
     grid-area: main_map;
+    border-radius: 30px;
+    border: 0.3rem solid;
+    width:  900px;
+    height: 600px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    border-color: white;
 }
