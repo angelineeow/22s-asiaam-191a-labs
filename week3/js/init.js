@@ -55,8 +55,28 @@ function createButtons(lat, lng, title, icon){
     newButton.addEventListener('click', function(){
         map.flyTo([lat,lng]); 
     })
-    document.getElementById("contents").appendChild(newButton); 
+    document.getElementById("contents").appendChild(newButton);
 }
+
+// adding legend
+var legend = L.control({position: 'bottomleft'});
+
+legend.onAdd = function (map) {
+
+    var div = L.DomUtil.create('div', 'info legend'),
+        grades = ["Traveled", "Bucket list"],
+        labels = ["upload/luggage.png","upload/location.png"];
+
+    // loop through our density intervals and generate a label with a colored square for each interval
+    for (var i = 0; i < grades.length; i++) {
+        div.innerHTML +=
+            grades[i] + (" <img src="+ labels[i] +" height='15' width='15'>");
+    }
+
+    return div;
+};
+
+legend.addTo(map);
 
 fetch("travelmap.geojson")
     .then(response => {
