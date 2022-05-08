@@ -109,7 +109,7 @@ function add_Marker2(lat, lng, placename, description){
 //              }).addTo(map);
 //      })
 
-const dataUrl = "htthttps://docs.google.com/spreadsheets/d/e/2PACX-1vTr6C3kG8rmylf1k4GzPFAS5ycwuUDwikXCoxEtk4usmvLla2gHeZkOLSmZu03XsWx76Q3kBnnke0YL/pub?output=csv"
+const dataUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTr6C3kG8rmylf1k4GzPFAS5ycwuUDwikXCoxEtk4usmvLla2gHeZkOLSmZu03XsWx76Q3kBnnke0YL/pub?output=csv"
 
 function loadData(url){
     Papa.parse(url, {
