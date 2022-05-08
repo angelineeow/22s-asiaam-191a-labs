@@ -35,10 +35,10 @@ function add_Marker(lat, lng, placename, popup, icon){
     return message;
 }
 
-function add_Marker2(lat, lng, placename, description){
-    message = `<h2 class="spacing2">${placename}</h2> <h3>${description}</h3>`
+function add_Marker2(lat, lng, placename){
+    message = `<h2 class="spacing2">${placename}</h2>`
     L.marker([lat, lng], {icon: listIcon}).addTo(map).bindPopup(message)
-  return message;
+    return message;
  }
 
  add_Marker(37.7749, -122.4194, '✿ San Francisco ✿', 'I studied in bay area for community college', 'upload/golden-gate-bridge.png')
@@ -109,7 +109,7 @@ function add_Marker2(lat, lng, placename, description){
 //              }).addTo(map);
 //      })
 
-const dataUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRUOqIOU43z0WqILu3TVJxpVHCbJyKGCs4bur0kPRixrnxUQPgx4U0RRz7KfqeJtuZOLUdGDOU1JBHR/pub?output=csv"
+const dataUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ1zkXyNeYpfW1TtfOrvjRMa5Ee79RcLivI0QDSVLR5TLdviTE01hfY9gP9-qSjGNMH06tREn5Xeweo/pub?output=csv"
 
 function loadData(url){
     Papa.parse(url, {
@@ -123,7 +123,7 @@ function processData(results){
     console.log(results)
     results.data.forEach(data => {
         console.log(data)
-        add_Marker2(data.lat,data.lng,data['New location suggestion time! (Only one)'], data['Describe why you would suggest this location to visit :)!!! (1-2 sentences)'])
+        add_Marker2(data.lat,data.lng,data['New specific location of place you would suggest (ex: San Francisco, Los Angeles)'])
     })
 }
 
