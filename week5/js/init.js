@@ -25,13 +25,13 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 //     popupAnchor: [0, 0],
 // });
 
-// adding markers
-//function add_Marker(lat, lng, placename, popup, photoname, icon){
-//    message = `<h2 class="spacing2">${placename}</h2> <h3>${popup}</h3><img class="addborderandcenter" src=${photoname}>`
-//    L.marker([lat, lng], {icon: checkIcon}).addTo(map).bindPopup(message)
-//    createButtons(lat,lng, placename, icon); 
-//  return message;
-//}
+//adding markers
+function add_Marker(lat, lng, placename){
+   message = `<h2 class="spacing2">${placename}</h2>`
+   L.marker([lat, lng], {icon: checkIcon}).addTo(map).bindPopup(message)
+   createButtons(lat,lng, placename); 
+ return message;
+}
 
 //add_Marker(37.7749, -122.4194, '✿ San Francisco ✿', 'I studied in bay area for community college', 'upload/sf.png', 'upload/golden-gate-bridge.png')
 //add_Marker(47.6062, -122.3321, '✿ Seattle ✿', 'First station of my solo trip!', 'upload/seattle.png', 'upload/space-needle.png')
@@ -46,10 +46,10 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 L.control.scale().addTo(map);
 
 // create buttons
-function createButtons(lat, lng, title, icon){
+function createButtons(lat, lng, title){
     const newButton = document.createElement("button"); 
     newButton.id = "button"+title; 
-    newButton.innerHTML = title + `<img class="small" src=${icon}>`; 
+    newButton.innerHTML = title; 
     newButton.setAttribute("lat",lat); 
     newButton.setAttribute("lng",lng); 
     newButton.addEventListener('click', function(){
@@ -61,20 +61,20 @@ function createButtons(lat, lng, title, icon){
 // adding legend
 var legend = L.control({position: 'bottomleft'});
 
-legend.onAdd = function (map) {
+// legend.onAdd = function (map) {
 
-    var div = L.DomUtil.create('div', 'info legend'),
-        grades = ["Traveled", "Bucket list"],
-        labels = ["upload/luggage.png","upload/location.png"];
+//     var div = L.DomUtil.create('div', 'info legend'),
+//         grades = ["Traveled", "Bucket list"],
+//         labels = ["upload/luggage.png","upload/location.png"];
 
-    // loop through our density intervals and generate a label with a colored square for each interval
-    for (var i = 0; i < grades.length; i++) {
-        div.innerHTML +=
-            grades[i] + (" <img src="+ labels[i] +" height='15' width='15'>");
-    }
+//     // loop through our density intervals and generate a label with a colored square for each interval
+//     for (var i = 0; i < grades.length; i++) {
+//         div.innerHTML +=
+//             grades[i] + (" <img src="+ labels[i] +" height='15' width='15'>");
+//     }
 
-    return div;
-};
+//     return div;
+// };
 
 legend.addTo(map);
 
@@ -115,7 +115,7 @@ function processData(results){
     console.log(results)
     results.data.forEach(data => {
         console.log(data)
-        addMarker(data)
+        add_Marker(data.lat,data.lng, data['New location suggestion time!'])
     })
 }
 
