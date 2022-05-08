@@ -35,8 +35,8 @@ function add_Marker(lat, lng, placename, popup, icon){
     return message;
 }
 
-function add_Marker2(lat, lng, placename, icon){
-    message = `<h2 class="spacing2">${placename}</h2>`
+function add_Marker2(lat, lng, placename, description){
+    message = `<h2 class="spacing2">${placename}</h2> <h3>${description}</h3>`
     L.marker([lat, lng], {icon: listIcon}).addTo(map).bindPopup(message)
   return message;
  }
@@ -123,7 +123,7 @@ function processData(results){
     console.log(results)
     results.data.forEach(data => {
         console.log(data)
-        add_Marker2(data.lat,data.lng,data['New location suggestion time!'])
+        add_Marker2(data.lat,data.lng,data['New location suggestion time! (Only one)'], data['Describe why you would suggest this location to visit :)!!! (1-2 sentences)'])
     })
 }
 
