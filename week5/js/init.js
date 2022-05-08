@@ -35,8 +35,8 @@ function add_Marker(lat, lng, placename, popup, icon){
     return message;
 }
 
-function add_Marker2(lat, lng, placename){
-    message = `<h2 class="spacing2">${placename}</h2>`
+function add_Marker2(lat, lng, placename, description){
+    message = `<h2 class="spacing2">${placename}</h2> <h3>${description}</h3>`
     L.marker([lat, lng], {icon: listIcon}).addTo(map).bindPopup(message)
     return message;
  }
@@ -109,7 +109,7 @@ function add_Marker2(lat, lng, placename){
 //              }).addTo(map);
 //      })
 
-const dataUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ1zkXyNeYpfW1TtfOrvjRMa5Ee79RcLivI0QDSVLR5TLdviTE01hfY9gP9-qSjGNMH06tREn5Xeweo/pub?output=csv"
+const dataUrl = "htthttps://docs.google.com/spreadsheets/d/e/2PACX-1vTr6C3kG8rmylf1k4GzPFAS5ycwuUDwikXCoxEtk4usmvLla2gHeZkOLSmZu03XsWx76Q3kBnnke0YL/pub?output=csv"
 
 function loadData(url){
     Papa.parse(url, {
@@ -123,7 +123,7 @@ function processData(results){
     console.log(results)
     results.data.forEach(data => {
         console.log(data)
-        add_Marker2(data.lat,data.lng,data['New specific location of place you would suggest (ex: San Francisco, Los Angeles)'])
+        add_Marker2(data.lat,data.lng,data['New specific location of place you would suggest (ex: San Francisco, Los Angeles)'], data['Describe why you would suggest this location to visit :)!!! (1-2 sentences)'])
     })
 }
 
