@@ -38,7 +38,7 @@ add_Marker(47.6062, -122.3321, '✿ Seattle ✿', 'First station of my solo trip
 add_Marker(41.8781, -87.6298, '✿ Chicago ✿', 'Second station of my solo trip!','upload/chicago.png', 'upload/cloud-gate.png')
 add_Marker(38.9072, -77.0369, '✿ Washington DC ✿', 'Third station of my solo trip!','upload/washingtonDC.png', 'upload/lincoln-memorial.png')
 add_Marker(36.1699, -115.1398, '✿ Las Vegas ✿', 'Fourth station of my solo trip','upload/lasvegas.png', 'upload/las-vegas.png')
-add_Marker(25.7617, -80.1918, '✿ Miami ✿', 'I went miami for spring break wirh friends I met online','upload/miami.png', 'upload/cheers.png')
+add_Marker(25.7617, -80.1918, '✿ Miami ✿', 'I went miami for spring break with friends I met online','upload/miami.png', 'upload/cheers.png')
 add_Marker(25.7907, -80.1300, '✿ Miami Beach ✿', 'I love sunbathing in miami','upload/miamibeach.png', 'upload/vacations.png')
 add_Marker(24.5554, -81.7842, '✿ Key West ✿', 'The road to keywest to STUNNING!','upload/keywest.png', 'upload/ocean.png')
 
@@ -78,25 +78,33 @@ legend.onAdd = function (map) {
 
 legend.addTo(map);
 
-fetch("travelmap.geojson")
-    .then(response => {
-        return response.json()
-    })
-    .then(data =>{
-        
-        createButtons(data.features[0].geometry.coordinates[1], data.features[0].geometry.coordinates[0], `✿ ${data.features[0].properties.attraction} ✿`, "upload/hawaii.png")
-        createButtons(data.features[1].geometry.coordinates[1], data.features[1].geometry.coordinates[0], `✿ ${data.features[1].properties.attraction} ✿`, "upload/statue-of-liberty.png")
-        createButtons(data.features[2].geometry.coordinates[1], data.features[2].geometry.coordinates[0], `✿ ${data.features[2].properties.attraction} ✿`, "upload/cuba.png")
-        createButtons(data.features[3].geometry.coordinates[1], data.features[3].geometry.coordinates[0], `✿ ${data.features[3].properties.attraction} ✿`, "upload/leaf.png")
-        createButtons(data.features[4].geometry.coordinates[1], data.features[4].geometry.coordinates[0], `✿ ${data.features[4].properties.attraction} ✿`, "upload/fuji-mountain.png")
-        createButtons(data.features[5].geometry.coordinates[1], data.features[5].geometry.coordinates[0], `✿ ${data.features[5].properties.attraction} ✿`, "upload/gwanghwamun.png")
-        createButtons(data.features[6].geometry.coordinates[1], data.features[6].geometry.coordinates[0], `✿ ${data.features[6].properties.attraction} ✿`, "upload/pyramids.png")
-        
-        L.geoJSON(data, {
-                pointToLayer: (feature, latlng) => { 
-                    return L.marker(latlng, {icon: listIcon})
-                }
-            }).bindPopup(layer => {
-                return `<h2 class="spacing2"> ✿ ${layer.feature.properties.attraction} ✿</h2> <h3>${layer.feature.properties.description}</h3> <img class="addcenter" src=${layer.feature.properties.img}>`;
-            }).addTo(map);
-    })
+const dataUrl = "http://example.com"
+
+// load data
+function loadData(url){
+    fetch(url)
+        .then(response => {
+            console.log(response)
+            return response
+        })
+        .then(data =>{
+            
+            createButtons(data.features[0].geometry.coordinates[1], data.features[0].geometry.coordinates[0], `✿ ${data.features[0].properties.attraction} ✿`, "upload/hawaii.png")
+            createButtons(data.features[1].geometry.coordinates[1], data.features[1].geometry.coordinates[0], `✿ ${data.features[1].properties.attraction} ✿`, "upload/statue-of-liberty.png")
+            createButtons(data.features[2].geometry.coordinates[1], data.features[2].geometry.coordinates[0], `✿ ${data.features[2].properties.attraction} ✿`, "upload/cuba.png")
+            createButtons(data.features[3].geometry.coordinates[1], data.features[3].geometry.coordinates[0], `✿ ${data.features[3].properties.attraction} ✿`, "upload/leaf.png")
+            createButtons(data.features[4].geometry.coordinates[1], data.features[4].geometry.coordinates[0], `✿ ${data.features[4].properties.attraction} ✿`, "upload/fuji-mountain.png")
+            createButtons(data.features[5].geometry.coordinates[1], data.features[5].geometry.coordinates[0], `✿ ${data.features[5].properties.attraction} ✿`, "upload/gwanghwamun.png")
+            createButtons(data.features[6].geometry.coordinates[1], data.features[6].geometry.coordinates[0], `✿ ${data.features[6].properties.attraction} ✿`, "upload/pyramids.png")
+            
+            L.geoJSON(data, {
+                    pointToLayer: (feature, latlng) => { 
+                        return L.marker(latlng, {icon: listIcon})
+                    }
+                }).bindPopup(layer => {
+                    return `<h2 class="spacing2"> ✿ ${layer.feature.properties.attraction} ✿</h2> <h3>${layer.feature.properties.description}</h3> <img class="addcenter" src=${layer.feature.properties.img}>`;
+                }).addTo(map);
+        })
+}
+
+loadData(dataUrl)
