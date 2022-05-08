@@ -178,14 +178,6 @@ header{
     text-align: center;
 }
 
-.main_survey{
-    display: grid block;
-    grid-template-columns: 1fr;
-    grid-area: main_content;
-    grid-template-areas: "content" "main_map";
-    text-align: center;
-}
-
 .pageindex{
     float: right;
     color: #91a0e6;
@@ -218,6 +210,19 @@ header{
 }
 
 #the_map{
+    height: 80vh;
+    grid-area: main_map;
+    border-radius: 30px;
+    border: 0.3rem solid;
+    width:  900px;
+    height: 600px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    border-color: white;
+}
+
+#the_survey_map{
     height: 80vh;
     grid-area: main_map;
     border-radius: 30px;
