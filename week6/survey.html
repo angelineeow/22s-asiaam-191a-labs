@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>ASIA AM 191A: Siew Fen Eow - Survey</title>
+        <!-- hint: remember to change your page title! -->
+        <meta charset="utf-8" />
+        <link rel="shortcut icon" href="#">
+        <link rel="stylesheet" href="styles/style.css">
+
+        <!-- Leaflet's css-->
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+
+        <!-- Leaflet's JavaScript-->
+        <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+        <script src="js/papaparse.min.js"></script>
+    </head>
+
+    <body>
+        <header>
+            <h1 class="spacing3">
+                ❥ Travel Map ❥
+            </h1>
+        </header>
+
+        <div class="pageindex">
+            <a href="index.html" style="text-decoration: none" class="cottoncolor">Home</a>
+            <a href="more_about_me.html" style="text-decoration: none" class="cottoncolor">About</a>
+            <a href="survey.html" style="text-decoration: none" class="cottoncolor">Map + Survey</a>
+        </div>
+
+        <div class="main_survey">
+            <div id="content_survey">
+                <div id="placeForButtons"></div> 
+                <div id="theSurvey">
+                    <div id="surveyButton">
+                        <a href="https://docs.google.com/forms/d/e/1FAIpQLSdQeX3jeA7WIfT5unsKOFVYVSvl43y0iCxHuzcFbBX-152XRQ/viewform?embedded=true">Take a survey</a>
+                    </div>
+                </div>
+            </div>
+            <div id="the_map"></div>
+        </div>
+        <div id="footer">
+
+        <h2>
+            <a href="more_about_me.html" style="text-decoration: none" class="cottoncolor"> <b> ← </b>
+        </h2>
+
+        <h5 class="spacing2">copyright © 2022</h5>
+        </div>
+
+        <div class="cursor"></div>
+        <script src="./js/cursor.js"></script> 
+        <script src="./js/init.js"></script> 
+        
+    </body>
+</html>
