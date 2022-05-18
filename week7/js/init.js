@@ -3,44 +3,70 @@ let mapOptions = {
     "mapCenter":[39.8283, -98.5795], 
     "zoomLevel": 4
 };
+
+// our Leaflet feature group layers waiting for content!
+let travelagain = L.featureGroup();
+let nottravelagain = L.featureGroup();
  
+let layers = {
+    "Will travel again": travelagain,
+    "May not travel again": nottravelagain
+}
+
+let circleOptions = {
+    radius: 6,
+    fillColor: "#ff7800",
+    color: "#acb8ec",
+    weight: 5,
+    opacity: 1,
+    fillOpacity: 0.8
+}
+
+const dataUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTr6C3kG8rmylf1k4GzPFAS5ycwuUDwikXCoxEtk4usmvLla2gHeZkOLSmZu03XsWx76Q3kBnnke0YL/pub?output=csv"
+
+// define the leaflet map
 const map = L.map('the_map').setView(mapOptions.mapCenter, mapOptions.zoomLevel);
+
+// add layer control box
+L.control.layers(null,layers).addTo(map)
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(map);
 
 // create icons
-var listIcon = L.icon({
-    iconUrl: 'upload/location.png',
-    iconSize: [25, 25],
-    iconAnchor: [0, 0],
-    popupAnchor: [0, 0],
-});
+// var listIcon = L.icon({
+//     iconUrl: 'upload/location.png',
+//     iconSize: [25, 25],
+//     iconAnchor: [0, 0],
+//     popupAnchor: [0, 0],
+// });
 
-var checkIcon = L.icon({
-    iconUrl: 'upload/luggage.png',
-    iconSize: [25, 25],
-    iconAnchor: [10, 10],
-    popupAnchor: [0, 0],
-});
+// var checkIcon = L.icon({
+//     iconUrl: 'upload/luggage.png',
+//     iconSize: [25, 25],
+//     iconAnchor: [10, 10],
+//     popupAnchor: [0, 0],
+// });
 
 
 
 // adding markers
-function add_Marker(lat, lng, placename, popup, icon){
-    message = `<h2 class="spacing2">${placename}</h2> <h3>${popup}</h3>`
-    L.marker([lat, lng], {icon: checkIcon}).addTo(map).bindPopup(message)
-    createButtons(lat,lng, placename, icon); 
-    return message;
+ function add_Marker(data){
+    if(data['Would you travel to the place that you would like to recommend again?'] == "Yes"){
+        circleOptions.fillColor = "#728DE1"
+        message = `<h2 class="spacing2">${data['New specific location of place you would suggest (ex: San Francisco, Los Angeles)']}</h2> <h3>${data['Describe why you would suggest this location to visit :)!!! (1-2 sentences)']}</h3> <h3 class="spacing2">(would love to come again))</h3`
+        travelagain.addLayer(L.circleMarker([data.lat,data.lng], circleOptions).bindPopup(message))
+        createButtons(data)
+    }
+    else{
+        circleOptions.fillColor = "blue"
+        message = `<h2 class="spacing2">${data['New specific location of place you would suggest (ex: San Francisco, Los Angeles)']}</h2> <h3>${data['Describe why you would suggest this location to visit :)!!! (1-2 sentences)']}</h3> <h3 class="spacing2">(not sure if I will come again)</h3>`
+        nottravelagain.addLayer(L.circleMarker([data.lat,data.lng],circleOptions).bindPopup(message))
+        createButtons(data)
+    }
+    return data
 }
-
-function add_Marker2(data){
-    message = `<h2 class="spacing2">${data['New specific location of place you would suggest (ex: San Francisco, Los Angeles)']}</h2> <h3>${data['Describe why you would suggest this location to visit :)!!! (1-2 sentences)']}</h3>`
-    L.marker([data.lat,data.lng], {icon: listIcon}).addTo(map).bindPopup(message)
-    createButtons2(data.lat,data.lng,data['New specific location of place you would suggest (ex: San Francisco, Los Angeles)'])
-    return message;
- }
 
 //  add_Marker(37.7749, -122.4194, '✿ San Francisco ✿', 'I studied in bay area for community college', 'upload/golden-gate-bridge.png')
 //  add_Marker(47.6062, -122.3321, '✿ Seattle ✿', 'First station of my solo trip!', 'upload/space-needle.png')
@@ -53,22 +79,10 @@ function add_Marker2(data){
  
  // adding controls: scale
  L.control.scale().addTo(map);
- 
- // create buttons
- function createButtons(lat, lng, title, icon){
-     const newButton = document.createElement("button"); 
-     newButton.id = "button"+title; 
-     newButton.innerHTML = title + `<img class="small" src=${icon}>`; 
-     newButton.setAttribute("lat",lat); 
-     newButton.setAttribute("lng",lng); 
-     newButton.addEventListener('click', function(){
-         map.flyTo([lat,lng]); 
-     })
-     document.getElementById("contents").appendChild(newButton);
- }
+
 
  // create buttons
- function createButtons2(data){
+ function createButtons(data){
     const newButton = document.createElement("button"); 
     newButton.id = "button"+data['New specific location of place you would suggest (ex: San Francisco, Los Angeles)']; 
     newButton.innerHTML = data['New specific location of place you would suggest (ex: San Francisco, Los Angeles)']; 
@@ -77,28 +91,29 @@ function add_Marker2(data){
     newButton.addEventListener('click', function(){
         map.flyTo([data.lat,data.lng]); 
     })
-    document.getElementById("contents").appendChild(newButton);
+    const placeforbuttons = document.getElementById('placeForButtons')
+    placeforbuttons.appendChild(newButton);
 }
- 
+
  // adding legend
- var legend = L.control({position: 'bottomleft'});
+ // var legend = L.control({position: 'bottomleft'});
  
- legend.onAdd = function (map) {
+//  legend.onAdd = function (map) {
  
-     var div = L.DomUtil.create('div', 'info legend'),
-         grades = ["Traveled", "Bucket list"],
-         labels = ["upload/luggage.png","upload/location.png"];
+//      var div = L.DomUtil.create('div', 'info legend'),
+//          grades = ["Traveled", "Bucket list"],
+//          labels = ["upload/luggage.png","upload/location.png"];
  
-     // loop through our density intervals and generate a label with a colored square for each interval
-     for (var i = 0; i < grades.length; i++) {
-         div.innerHTML +=
-             grades[i] + (" <img src="+ labels[i] +" height='15' width='15'>");
-     }
+//      // loop through our density intervals and generate a label with a colored square for each interval
+//      for (var i = 0; i < grades.length; i++) {
+//          div.innerHTML +=
+//              grades[i] + (" <img src="+ labels[i] +" height='15' width='15'>");
+//      }
  
-     return div;
- };
+//      return div;
+//  };
  
- legend.addTo(map);
+//  legend.addTo(map);
  
 //  fetch("travelmap.geojson")
 //      .then(response => {
@@ -123,8 +138,6 @@ function add_Marker2(data){
 //              }).addTo(map);
 //      })
 
-const dataUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTr6C3kG8rmylf1k4GzPFAS5ycwuUDwikXCoxEtk4usmvLla2gHeZkOLSmZu03XsWx76Q3kBnnke0YL/pub?output=csv"
-
 function loadData(url){
     Papa.parse(url, {
         header: true,
@@ -137,8 +150,12 @@ function processData(results){
     console.log(results)
     results.data.forEach(data => {
         console.log(data)
-        add_Marker2(data)
+        add_Marker(data)
     })
+    travelagain.addTo(map) // add our layers after markers have been made
+    nottravelagain.addTo(map) // add our layers after markers have been made  
+    let allLayers = L.featureGroup([travelagain,nottravelagain]);
+    map.fitBounds(allLayers.getBounds());
 }
 
 // this is our function call to get the data
